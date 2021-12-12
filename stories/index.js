@@ -7,13 +7,15 @@ import "index.scss";
 
 //Component Imports
 import Button from "components/Button";
-import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
+import DayListItem from "components/DayListItem";
+import InterviewerList from "components/InterviewerList";
 import InterviewerListItem from "components/InterviewerListItem";
 
 //Dummy Data
 import days from "data/days.js";
 import interviewer from "data/interviewer.js";
+import interviewers from "data/interviewers.js";
 
 // Button Stories
 storiesOf("Button", module)
@@ -81,6 +83,26 @@ storiesOf("Button", module)
       id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
+      setInterviewer={action("setInterviewer")}
+    />
+  ));
+
+
+  //InterviewerList Stories
+  storiesOf("InterviewerList", module)
+  .addParameters({
+    backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
+  })
+  .add("Initial", () => (
+    <InterviewerList
+      interviewers={interviewers}
+      setInterviewer={action("setInterviewer")}
+    />
+  ))
+  .add("Preselected", () => (
+    <InterviewerList
+      interviewers={interviewers}
+      interviewer={3}
       setInterviewer={action("setInterviewer")}
     />
   ));
