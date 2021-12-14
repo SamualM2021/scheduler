@@ -3,6 +3,8 @@ import React, {useState} from "react";
 import InterviewerList from "components/InterviewerList";
 import Button from "components/Button";
 
+const DEFAULT_NAME = "";
+const DEFAULT_INTERVIEWER = null;
 /*
 * Form Overview
 *  Form takes the following props
@@ -15,13 +17,23 @@ import Button from "components/Button";
   used when editing a form
 */
 const Form = props => {
-  const [name, setName] = useState(props.name || "");
-  const [interviewer, setInterviewer] = useState(props.value || null)
+  const [name, setName] = useState(props.name || DEFAULT_NAME);
+  const [interviewer, setInterviewer] = useState(props.value || DEFAULT_INTERVIEWER)
+
+  const reset = () => {
+    setName(DEFAULT_NAME);
+    setInterviewer(DEFAULT_INTERVIEWER);
+  }
+
+  const cancel = () => {
+    reset();
+    props.onCancel();
+  }
 
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
-        <form autoComplete="off">
+        <form autoComplete="off" onSubmit={event => event.preventDefault()}>
           <input
             className="appointment__create-input text--semi-bold"
             name={name}
@@ -36,13 +48,13 @@ const Form = props => {
         </form>
         <InterviewerList
           interviewers={props.interviewers}
-          value={props.value}
-          onChange={event => setInterviewer(event.target.value)}
+          value={interviewer}
+          onChange={event => setInterviewer(event)}
         />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={props.onCancel}>Cancel</Button>
+          <Button danger onClick={cancel}>Cancel</Button>
           <Button confirm onClick={props.onSave}>Save</Button>
         </section>
       </section>
