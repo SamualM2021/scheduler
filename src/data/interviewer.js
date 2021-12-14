@@ -1,7 +1,9 @@
+import interviewers from "./interviewers.js";
+
 const interviewer = {
-  id: 1,
-  name: "Sylvia Palmer",
-  avatar: "https://i.imgur.com/LpaY82x.png"
+  id: interviewers[0].id,
+  name: interviewers[0].name,
+  avatar: interviewers[0].avatar
 };
 
 export default interviewer;

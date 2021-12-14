@@ -22,7 +22,7 @@ const Appointment = props => {
   return (
     <article className="appointment">
       <h1>{props.time}</h1>
-      {props.interview ? <Show student={interview.student} interviewer={interview.interviewer}/> : <Empty />}
+      {interview ? <Show student={interview.student} interviewer={interview.interviewer.name}/> : <Empty />}
     </article>
   );
 }
