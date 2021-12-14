@@ -1,5 +1,10 @@
 import React from "react";
 
+/*
+* Header Overview
+*  Header takes the following props
+* - time: A string representing the time of the booking
+*/
 const Header = props => {
   return (
     <header className="appointment__time">

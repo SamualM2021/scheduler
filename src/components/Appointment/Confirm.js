@@ -1,6 +1,14 @@
 import React from "react";
 
 import Button from 'components/Button';
+
+/*
+* Confirm Overview
+*  Confirm takes the following props
+* - message: A string representing the confirmation message we want to show
+* - onCancel: A callback that will do something on a cancel action
+* - onConfirm: A callback that will do something on a cancel action
+*/
 const Confirm = props => {
   return (
     <main className="appointment__card appointment__card--confirm">

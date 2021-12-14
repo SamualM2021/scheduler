@@ -13,6 +13,14 @@ const formatSpots = spots => {
   }
 };
 
+/*
+* DayListItem Overview
+*  DayListItem takes the following props
+* - name: A string representing the name of the day
+* - spots: A number representing the spots available for scheduling
+* - selected: A string representing the selected day
+* - setDay: A callback that will do something to set the day
+*/
 export default function DayListItem(props) {
   let dayListItemClass = classNames({
     "day-list__item" : true,

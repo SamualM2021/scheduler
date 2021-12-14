@@ -1,5 +1,13 @@
 import React from "react";
 
+/*
+* Show Overview
+*  Show takes the following props
+* - student: A string representing the name of the student
+* - interviewer: A string representing the name of the interviewer
+* - onEdit: A callback that will do something on an edit action
+* - onDelete: A callback that will do something on a delete action
+*/
 const Show = props => {
   return (
     <main className="appointment__card appointment__card--show">

@@ -1,5 +1,10 @@
 import React from "react";
 
+/*
+* Status Overview
+*  Status takes the following props
+* - message: A string representing the status message we want to show
+*/
 const Status = props => {
   return (
     <main className="appointment__card appointment__card--status">

@@ -3,6 +3,14 @@ import InterviewerListItem from "./InterviewerListItem";
 
 import "components/styles/InterviewerList.scss";
 
+/*
+* InterviewerList Overview
+*  InterviewerList takes the following props
+* - interviewers: An array of objects representing the available interviewers
+  for booking an appointment
+* - onChange: A callback that will do something on a change action
+* - value (Optional): A number indicating the selected interviewer from the list
+*/
 const InterviewerList = props => {
   const interviewers = props.interviewers;
   const interviewerItemList = interviewers.map(interviewer =>
