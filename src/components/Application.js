@@ -1,22 +1,31 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import axios from 'axios';
 
 import "components/styles/Application.scss";
 import Appointment from "./Appointment";
 import DayList from "./DayList";
 
 //Dummy data
-import days from "data/days.js";
 import appointments from "data/appointments.js";
 
 const MONDAY = "Monday";
+const daysURL = "http://localhost:8001/api/days";
+const appointmentsURL = "http://localhost:8001/appointments";
+const interviewersURL = "http://localhost:8001/api/interviewers";
 
 export default function Application(props) {
   const [day, setDay] = useState(MONDAY);
+  const [days, setDays] = useState([]);
 
   const scheduledAppointments = appointments.map(appointment => {
     return <Appointment key={appointment.id} {...appointment}/>
   });
 
+  useState(() => {
+    axios.get(daysURL).then(response => {
+      setDays(response.data);
+    })
+  }, []);
   return (
     <main className="layout">
       <section className="sidebar">
