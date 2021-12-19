@@ -4,34 +4,39 @@ import axios from 'axios';
 import "components/styles/Application.scss";
 import Appointment from "./Appointment";
 import DayList from "./DayList";
-
-//Dummy data
-import appointments from "data/appointments.js";
+import {getAppointmentsForDay, getInterview} from "../helpers/selectors"
 
 const MONDAY = "Monday";
 const daysURL = "http://localhost:8001/api/days";
-const appointmentsURL = "http://localhost:8001/appointments";
+const appointmentsURL = "http://localhost:8001/api/appointments";
 const interviewersURL = "http://localhost:8001/api/interviewers";
 
 export default function Application(props) {
   const [state, setState] = useState({
     day: MONDAY,
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   })
 
   const setDay = day => setState({ ...state, day });
-  const setDays = days => setState(prev => ({...prev, days }));
 
-  const scheduledAppointments = appointments.map(appointment => {
+  useEffect(() => {
+    Promise.all([
+      axios.get(daysURL),
+      axios.get(appointmentsURL),
+      axios.get(interviewersURL)
+    ]).then(response => {
+      setState(prev => ({ ...prev, days: response[0].data, appointments: response[1].data, interviewers: response[2].data }))
+    })
+  }, []);
+
+  const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const scheduledAppointments = dailyAppointments.map(appointment => {
+    // const interview = getInterview(state, dailyAppointments.interview);
     return <Appointment key={appointment.id} {...appointment}/>
   });
 
-  useState(() => {
-    axios.get(daysURL).then(response => {
-      setDays(response.data);
-    })
-  });
   return (
     <main className="layout">
       <section className="sidebar">

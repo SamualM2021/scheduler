@@ -23,3 +23,21 @@ export function getAppointmentsForDay(state, day) {
 
   return selectedAppointments;
 }
+
+export function getInterview(state, interview) {
+
+  //Interview is empty
+  if (!interview) {
+    return null;
+  }
+
+  const newInterviewer = state.interviewers[interview.interviewer];
+  //sets the interviewer to the interviewer
+  //of the interview object sent to this function
+  const createdInterview = {
+    student: interview.student,
+    interviewer: {...state.interviewers[interview.interviewer]}
+  };
+
+  return createdInterview;
+}
