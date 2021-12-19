@@ -14,8 +14,14 @@ const appointmentsURL = "http://localhost:8001/appointments";
 const interviewersURL = "http://localhost:8001/api/interviewers";
 
 export default function Application(props) {
-  const [day, setDay] = useState(MONDAY);
-  const [days, setDays] = useState([]);
+  const [state, setState] = useState({
+    day: MONDAY,
+    days: [],
+    appointments: {}
+  })
+
+  const setDay = day => setState({ ...state, day });
+  const setDays = days => setState(prev => ({...prev, days }));
 
   const scheduledAppointments = appointments.map(appointment => {
     return <Appointment key={appointment.id} {...appointment}/>
@@ -25,7 +31,7 @@ export default function Application(props) {
     axios.get(daysURL).then(response => {
       setDays(response.data);
     })
-  }, []);
+  });
   return (
     <main className="layout">
       <section className="sidebar">
@@ -36,7 +42,7 @@ export default function Application(props) {
         />
         <hr className="sidebar__separator sidebar--centered" />
         <nav className="sidebar__menu">
-          <DayList days={days} day={day} setDay={setDay} />
+          <DayList days={state.days} day={state.day} setDay={setDay} />
         </nav>
         <img
           className="sidebar__lhl sidebar--centered"
