@@ -36,6 +36,16 @@ const Appointment = props => {
     interview ? SHOW : EMPTY
   );
 
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+
+    props.bookInterview(props.id, interview);
+    transition(SHOW);
+  }
+
   return (
     <article className="appointment">
       <h1>{props.time}</h1>
@@ -43,7 +53,7 @@ const Appointment = props => {
       {mode === SHOW && (
         <Show
           student={interview.student}
-          interviewer={interview.interviewer}
+          interview={interview.interviewer}
         />
       )}
       {mode === CREATE && (
@@ -51,6 +61,7 @@ const Appointment = props => {
           name={props.name}
           value={props.value}
           interviewers={interviewers}
+          onSave={save}
           onCancel={back}
         />
       )}
