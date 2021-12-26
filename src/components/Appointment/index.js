@@ -29,7 +29,6 @@ const Appointment = props => {
   const ERROR_SAVE = "ERROR_SAVE";
   const ERROR_DELETE = "ERROR_DELETE";
 
-
   const interview = props.interview;
   const interviewers = [];
   const { mode, transition, back } = useVisualMode(
@@ -41,11 +40,23 @@ const Appointment = props => {
       student: name,
       interviewer
     };
-
-    props.bookInterview(props.id, interview);
-    transition(SHOW);
+    transition(SAVING);
+    props.bookInterview(props.id, interview)
+      .then(() => transition(SHOW))
+      .catch(() => transition(ERROR_SAVE, true))
   }
 
+  function deleteAppointment() {
+
+    if (mode === CONFIRM) {
+      transition(DELETING, true)
+      props.cancelInterview(props.id)
+      .then(() => transition(EMPTY))
+      .catch(() => transition(ERROR_DELETE, true))
+    } else {
+      transition(CONFIRM);
+    }
+  }
   return (
     <article className="appointment">
       <h1>{props.time}</h1>
