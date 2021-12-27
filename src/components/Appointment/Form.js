@@ -21,7 +21,6 @@ const Form = props => {
   const [interviewer, setInterviewer] = useState(props.value || DEFAULT_INTERVIEWER)
 
   const interviewers = props.interviewers;
-
   const reset = () => {
     setName(DEFAULT_NAME);
     setInterviewer(DEFAULT_INTERVIEWER);
@@ -49,7 +48,7 @@ const Form = props => {
           />
         </form>
         <InterviewerList
-          interviewers={interviewers}
+          interviewers={props.interviewers}
           value={interviewer}
           onChange={event => setInterviewer(event)}
         />
@@ -57,7 +56,7 @@ const Form = props => {
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
-          <Button confirm onClick={props.onSave}>Save</Button>
+          <Button confirm onClick={() => props.onSave(name, interviewer)}>Save</Button>
         </section>
       </section>
     </main>
