@@ -20,6 +20,8 @@ const Form = props => {
   const [name, setName] = useState(props.name || DEFAULT_NAME);
   const [interviewer, setInterviewer] = useState(props.value || DEFAULT_INTERVIEWER)
 
+  const interviewers = props.interviewers;
+
   const reset = () => {
     setName(DEFAULT_NAME);
     setInterviewer(DEFAULT_INTERVIEWER);
@@ -47,7 +49,7 @@ const Form = props => {
           />
         </form>
         <InterviewerList
-          interviewers={props.interviewers}
+          interviewers={interviewers}
           value={interviewer}
           onChange={event => setInterviewer(event)}
         />
