@@ -6,13 +6,18 @@ const daysURL = "http://localhost:8001/api/days";
 const appointmentsURL = "http://localhost:8001/api/appointments";
 const interviewersURL = "http://localhost:8001/api/interviewers";
 
-export default function useApplicationData(props) {
+/**
+ * This custom hook is responsible for our application data and the management
+ * of it's state
+ * @returns
+ */
+export default function useApplicationData() {
 
   const reducers = {
     setDay(state, action) {
       return { ...state, day: action.value };
     },
-    updateAppointment(state, action) {
+    updateAppointments(state, action) {
       return { ...state, appointments: action.value };
     },
     setResponseData(state, action) {
@@ -22,6 +27,14 @@ export default function useApplicationData(props) {
         appointments: action.value.appointments,
         interviewers: action.value.interviewers
       };
+    },
+    setSpots(state, action) {
+      let appDaysArray = [...state.days];
+      appDaysArray[action.dayPosition].spots = action.value;
+      return {
+        ...state,
+        days: appDaysArray
+      }
     }
   }
   const reducer = (state, action) => {
@@ -35,6 +48,11 @@ export default function useApplicationData(props) {
     interviewers: {}
   })
 
+  /**
+   * Sets the state of our day
+   * @param {Object} day The object containing information about the day
+   * @returns
+   */
   const setDay = day => dispatch({type: "setDay", value: day });
 
   useEffect(() => {
@@ -53,13 +71,50 @@ export default function useApplicationData(props) {
     })
   }, []);
 
+  /**
+   * Book an interview within the scheduler app
+   * @param {integer} id
+   * @param {Object} interview
+   * @returns
+   */
   function bookInterview(id, interview) {
+    let bookedAppointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    let bookedAppointments = {
+      ...state.appointments,
+      [id]: bookedAppointment
+    };
+
+    // Add our interview as a new appointment for the day to our "back-end"
     return axios.put(`/api/appointments/${id}`, { interview }).then(response => {
+      let today = state.days.find(day => day.name === state.day);
+      dispatch({type: "setSpots", value: today.spots - 1, dayPosition: today.id - 1});
+      dispatch({ type: "updateAppointments", value: bookedAppointments });
     });
   }
 
+  /**
+   * Cancels an interview within the scheduler app
+   * @param {*} id
+   * @returns
+   */
   function cancelInterview(id) {
+    let cancelledAppointment = {
+      ...state.appointments[id],
+      interview: null
+    };
+    let bookedAppointments = {
+      ...state.appointments,
+      [id]: cancelledAppointment
+    };
+
+    //Removes an interview appointment for the day from our "back-end"
     return axios.delete(`/api/appointments/${id}`).then(response => {
+      let today = state.days.find(day => day.name === state.day);
+      dispatch({type: "setSpots", value: today.spots + 1, dayPosition: today.id - 1});
+      dispatch({ type: "updateAppointments", value: bookedAppointments });
     });
   }
 
