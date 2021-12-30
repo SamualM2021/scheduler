@@ -42,7 +42,7 @@ const Appointment = props => {
     if (mode === SHOW && !interview) {
       transition(EMPTY);
     }
-  }, [interview, mode, transition]);
+  }, [interview, transition, mode]);
 
   function save(name, interviewer) {
     transition(SAVING);
@@ -77,7 +77,7 @@ const Appointment = props => {
     <article className="appointment">
       <h1>{props.time}</h1>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
-      {mode === SHOW && interview && (
+      {mode === SHOW && interview && interview.interviewer && (
         <Show
           student={interview.student}
           interviewer={interview.interviewer.name}
