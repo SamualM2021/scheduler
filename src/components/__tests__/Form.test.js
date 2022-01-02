@@ -54,28 +54,52 @@ describe("Form", () => {
     expect(onSave).not.toHaveBeenCalled();
   });
 
-
-  it("calls onSave function when the name is defined", () => {
-    /* Create the mock onSave function */
+  it("can successfully save after trying to submit an empty student name", () => {
     const onSave = jest.fn();
-    const { getByText, queryByText } = render(
+    const { getByText, getByPlaceholderText, queryByText } = render(
+      <Form interviewers={interviewers} onSave={onSave} />
+    );
+
+    fireEvent.click(getByText("Save"));
+
+    expect(getByText(/student name cannot be blank/i)).toBeInTheDocument();
+    expect(onSave).not.toHaveBeenCalled();
+
+    fireEvent.change(getByPlaceholderText("Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+
+    fireEvent.click(getByText("Save"));
+
+    expect(queryByText(/student name cannot be blank/i)).toBeNull();
+
+    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
+  });
+
+  it("calls onCancel and resets the input field", () => {
+    const onCancel = jest.fn();
+    const { getByText, getByPlaceholderText, queryByText } = render(
       <Form
         interviewers={interviewers}
-        onSave={onSave}
-        name="Lydia Miller-Jones"
+        name="Lydia Mill-Jones"
+        onSave={jest.fn()}
+        onCancel={onCancel}
       />
     );
 
-    /* Click the save button */
     fireEvent.click(getByText("Save"));
 
-    /* Validation is not shown */
+    fireEvent.change(getByPlaceholderText("Enter Student Name"), {
+      target: { value: "Lydia Miller-Jones" }
+    });
+
+    fireEvent.click(getByText("Cancel"));
+
     expect(queryByText(/student name cannot be blank/i)).toBeNull();
 
-    /* 4. onSave is called once*/
-    expect(onSave).toHaveBeenCalledTimes(1);
+    expect(getByPlaceholderText("Enter Student Name")).toHaveValue("");
 
-    /* 5. onSave is called with the correct arguments */
-    expect(onSave).toHaveBeenCalledWith("Lydia Miller-Jones", null);
+    expect(onCancel).toHaveBeenCalledTimes(1);
   });
 });
