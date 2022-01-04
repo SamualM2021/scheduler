@@ -50,9 +50,19 @@ const fixtures = {
       name: "Cohana Roy",
       avatar: "https://i.imgur.com/FK8V841.jpg"
     }
+  },
+  interview: {
+    "1": {
+      student: "Lydia Miller-Jones",
+      interviewer: "Sylvia Palmer"
+    }
   }
 };
 
+const interview ={
+  student: "Lydia Miller-Jones",
+  interviewer: "Sylvia Palmer"
+}
 
 export default {
   defaults: { baseURL: "" },
@@ -82,5 +92,20 @@ export default {
         data: fixtures.interviewers
       });
     }
+  }),
+  put: jest.fn(() => {
+    return Promise.resolve({
+      status: 200,
+      statusText: "OK",
+      data: fixtures.interview
+    })
+  }),
+
+  delete: jest.fn((id) => {
+    return Promise.resolve({
+      status: 200,
+      statusText: "OK",
+      data: null
+    })
   })
 }

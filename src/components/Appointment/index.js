@@ -74,7 +74,7 @@ const Appointment = props => {
   }
 
   return (
-    <article className="appointment">
+    <article className="appointment" data-testid="appointment">
       <h1>{props.time}</h1>
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
       {mode === SHOW && interview && interview.interviewer && (
