@@ -52,22 +52,19 @@ const fixtures = {
     }
   },
   interview: {
-    "1": {
-      student: "Lydia Miller-Jones",
-      interviewer: "Sylvia Palmer"
-    }
+    student: "Lydia Miller-Jones",
+    interviewer: "Sylvia Palmer"
   }
 };
 
-const interview ={
-  student: "Lydia Miller-Jones",
-  interviewer: "Sylvia Palmer"
-}
+const daysURL = "http://localhost:8001/api/days";
+const appointmentsURL = "http://localhost:8001/api/appointments";
+const interviewersURL = "http://localhost:8001/api/interviewers";
 
 export default {
   defaults: { baseURL: "" },
   get: jest.fn(url => {
-    if (url === "/api/days") {
+    if (url === daysURL) {
       return Promise.resolve({
         status: 200,
         statusText: "OK",
@@ -75,7 +72,7 @@ export default {
       });
     }
 
-    if (url === "/api/appointments") {
+    if (url === appointmentsURL) {
       /* Resolve appointments data */
       return Promise.resolve({
         status: 200,
@@ -84,7 +81,7 @@ export default {
       });
     }
 
-    if (url === "/api/interviewers") {
+    if (url === interviewersURL) {
       /* Resolve interviewers data */
       return Promise.resolve({
         status: 200,
@@ -100,8 +97,7 @@ export default {
       data: fixtures.interview
     })
   }),
-
-  delete: jest.fn((id) => {
+  delete: jest.fn(() => {
     return Promise.resolve({
       status: 200,
       statusText: "OK",
