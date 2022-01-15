@@ -5,11 +5,12 @@
 
 ___
 
-- [Setup](#Setup)
-- [Clips](#Clips)
-- [Features](#Features)
+- [Setup](#setup-)
+- [Clips](#clips-)
+- [Features](#features-)
+- [References](#references-)
 
-## 💚 Setup
+ ## Setup 💚 
 
 Install dependencies with `npm install`.
 
@@ -31,7 +32,7 @@ npm test
 npm run storybook
 ```
 
-## 📺 Clips
+## Clips 📺 
 
 ### Switching the Days
 An example clip where you'll see the appointments change as we select different days
@@ -48,7 +49,7 @@ An example clip of saving and deleting appointments
 
 https://user-images.githubusercontent.com/93623256/149635267-4096f2f9-64a4-4869-9a08-369cd99b230a.mp4
 
-## 🐾 Features
+## Features 🐾 
 
 ### Functional Requirements
 
@@ -82,7 +83,7 @@ https://user-images.githubusercontent.com/93623256/149635267-4096f2f9-64a4-4869-
 
 ---
 
-## 📖References
+## References 📖 
 
 Note when stuck on some of the functionality in my project I referred to the logic in the following scheduler repos. 
 
