@@ -1,3 +1,13 @@
+/**
+ * This is the state management for the application
+ * - setDay given the current state it will set the current day
+ * - updateAppointments given the current state will do an update on
+ * the appointment given an id and an interview and will either reduce or increase
+ * the spots available
+ * - setResponseData this manages the state of the response for days, appointments
+ * and interviewers
+ * - setSpots Sets the spots for a given day
+ */
 const reducers = {
   setDay(state, action) {
     return { ...state, day: action.value };
