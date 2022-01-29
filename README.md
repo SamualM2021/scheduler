@@ -34,20 +34,16 @@ npm run storybook
 
 ## Clips 📺
 
-### Switching the Days
-An example clip where you'll see the appointments change as we select different days
-
-https://user-images.githubusercontent.com/93623256/149635196-015892d6-e668-4e84-85c0-c43ac7e3e82b.mp4
-
-### Errors
-An example clip of what you get when an error occurs when saving
-https://user-images.githubusercontent.com/93623256/149635194-6eb73782-a152-4fce-94b6-91426fc53c56.mp4
-
 
 ### Saving
 An example clip of saving and deleting appointments
 
 https://user-images.githubusercontent.com/93623256/149635267-4096f2f9-64a4-4869-9a08-369cd99b230a.mp4
+
+
+### Errors
+An example clip of what you get when an error occurs when saving
+https://user-images.githubusercontent.com/93623256/149635194-6eb73782-a152-4fce-94b6-91426fc53c56.mp4
 
 ## Features 🐾
 
